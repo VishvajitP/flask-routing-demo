@@ -7,7 +7,7 @@ app = Flask(__name__)
 def hello_world():
     return '<h1> Index Page! </h1>'
 
-@app.route('/hello')  # explicitly mentioning the end point
+@app.route('/hello')  # explicitly mentioning the end point ;  strict_slashes : if
 def view_function_hello():
     return 'End Point With Hello'
 
@@ -16,6 +16,7 @@ def variable_end_point(end_point):
     return 'Your end point is :  <br> /demo/%s' % end_point
 
 @app.route('/demo_int/<int:end_point>') # variable end point with given data type ; like- int, float, path
+@app.route('/demo_int/', defaults = {"end_point" : 99})  # multiple enpoints associated with same methods
 def variable_end_point_data_type(end_point):
     return 'Your end point is :  <br> /demo/%s' % end_point
 
@@ -31,6 +32,11 @@ def without_slash():
 if trailing slash is mentioned then you can access this end point irrespective of trailing slash mentioned in the request.
 In the second case, however, the URL is defined without a trailing slash, rather like the pathname of a file on UNIX-like systems. Accessing the URL with a trailing slash will produce a 404 "Not Found" error.
 '''
+
+@app.route('/with_strict_slash_param', strict_slashes=False)
+def with_strict_slash():
+    return 'No worries about the trailing slashes.'
+
 
 # you can call the end point associated with a method using `url_for()` function
 with app.test_request_context():
