@@ -1,4 +1,4 @@
-from flask import Flask, url_for
+from flask import Flask, url_for, request
 app = Flask(__name__)
 
 # we use route() decorator to tell flask what URL should trigger out function
@@ -37,6 +37,18 @@ In the second case, however, the URL is defined without a trailing slash, rather
 def with_strict_slash():
     return 'No worries about the trailing slashes.'
 
+# the one with methods
+@app.route('/with_methods', methods=['GET'])  # supported methods : 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'
+def with_methods():
+    return 'See how to use methods.'
+
+# you can use multiple methods for one end point
+@app.route('/with_methods_multiple', methods=['GET', 'POST'])  # supported methods : 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'
+def with_methods_multiple():
+    if request.method == 'GET':
+        return 'It was a GET.'
+    elif request.method == 'POST':   # you can use a REST Client to make a POST call
+        return 'It was a POST.'
 
 # you can call the end point associated with a method using `url_for()` function
 with app.test_request_context():
