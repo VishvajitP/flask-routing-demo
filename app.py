@@ -1,8 +1,10 @@
+'''
+    This script is written to demonstrate the routing mechanism in the flask web framweork.
+'''
 from flask import Flask, url_for, request
 app = Flask(__name__)
 
 # we use route() decorator to tell flask what URL should trigger out function
-
 @app.route('/')         # without explicitly mentioning the end point
 def hello_world():
     return '<h1> Index Page! </h1>'
